@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic', #  <-- add this
     'django.contrib.staticfiles',
     'django_extensions',
-
     'habit',
 ]
 
