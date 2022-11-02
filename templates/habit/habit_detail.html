@@ -1,13 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<p><a href="{% url 'home' %}">Home</a></p>
+<p><a href="{% url 'habit_new' %}">New Habit</a></p>
 
+<table>
+    <tr>
+      <th>Goal</th>
+      <th>Date</th>
+      <th>More info</th>
+    </tr>
 {% for record in records %}
-    <p><a href="{% url 'day_record' habitpk=record.r_habit.pk yearpk=record.h_date.h_year monthpk=record.h_date.h_month.pk daypk=record.h_date.h_day.pk %}">test</a></p> {{ record.r_habit.pk }}
-    {{ record }} set on {{ record.h_date }}<br>
-    the year pk is {{ record.h_date.h_year.pk }}<br>
-    the month pk is {{ record.h_date.h_month.pk }}
-    the day pk is {{ record.h_date.h_day.pk }}
+    <tr>
+      <td>{{ record.r_habit }} for {{ record.r_habit.target}} {{ record.r_habit.measurement }}</td>
+      <td>{{ record.h_date }}</td>
+      <td><p><a href="{% url 'day_record' habitpk=record.r_habit.pk yearpk=record.h_date.h_year monthpk=record.h_date.h_month.pk daypk=record.h_date.h_day.pk %}">Details</a></p></td>
+    </tr>
+
 {% endfor %}
+</table>
 
 {% endblock %}

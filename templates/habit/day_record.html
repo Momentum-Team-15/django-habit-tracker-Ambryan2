@@ -1,9 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<p><a href="{% url 'home' %}">Home</a></p>
+<p><a href="{% url 'habit_new' %}">New Habit</a></p>
 
-<p>test worked</p>
-    date from record: {{ record }}<br> 
-    habits: {{ habit }}<br>
-    date from pk: {{ date }}<br>    
+
+{% for record in records %}
+    <div>
+        <p>Goal: {{ record.r_habit }} for {{ record.r_habit.target}} {{ record.r_habit.measurement }}</p>
+        <p>What you did: {{ record }} {{ record.r_habit.measurement }}</p>
+    </div>
+        <p><a href="{% url 'edit_records' habitpk=record.r_habit.pk datepk=record.h_date.pk %}">Edit</a></p>
+
+{% endfor %}
+
+
 {% endblock %}

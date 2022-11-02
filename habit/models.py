@@ -8,10 +8,15 @@ class User(AbstractUser):
     pass
 # referenced in Record and is connected to user
 class Habit(models.Model):
-    action = models.CharField(max_length=50)
+    action = models.CharField(max_length=50,)
     target = models.FloatField()
     measurement = models.CharField(max_length=50, null=True, blank=True)
     user = models.ForeignKey('User', on_delete=models.CASCADE,blank=True, null=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['action','user'], name='habit_action')
+        ]
 
     def __str__(self):
         return f"{self.action}"
@@ -25,12 +30,12 @@ class Record(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['h_date','r_habit'], name='habit_per_date')
+            models.UniqueConstraint(fields=['h_date','r_habit','user'], name='habit_per_date')
         ]
-
 
     def __str__(self):
         return f"{self.r_habit} for {self.target}"
+
 # the date model is connected to year, month and day and is referenced in Record
 class Date(models.Model):
     h_year = models.ForeignKey('Year', on_delete=models.CASCADE,blank=True, null=True, related_name="day")

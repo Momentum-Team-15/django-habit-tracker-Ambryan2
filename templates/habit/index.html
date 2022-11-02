@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<p><a href="{% url 'home' %}">Home</a></p>
+<p><a href="{% url 'habit_new' %}">New Habit</a></p>
 
 {% for habit in habits %}
     <h4><a href="{% url 'habit_detail' pk=habit.pk %}">{{ habit }}</a></h4> <br>
-    habit pk is {{ habit.pk }}<br>
 {% endfor %}
+
 {% endblock %}
