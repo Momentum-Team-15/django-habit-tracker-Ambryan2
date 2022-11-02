@@ -1,8 +1,8 @@
-from signal import pause
+
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import User, Habit, Record, Date, Year, Month, Day
 from django.db.models import Q
-from .forms import HabitForm, RecordForm
+from .forms import HabitForm, RecordEditForm, DateForm, NewRecordForm
 
 # Create your views here.
 
@@ -44,15 +44,44 @@ def habit_new(request):
 def edit_records(request, habitpk, datepk):
     record = Record.objects.get(r_habit=habitpk,h_date=datepk)
     if request.method == "POST":
-        form = RecordForm(request.POST, instance=record)
+        form = RecordEditForm(request.POST, instance=record)
         if form.is_valid():
             record = form.save(commit=True)
             record.save()
             return redirect('home')
     else:
-        form = RecordForm(instance=record)
+        form = RecordEditForm(instance=record)
     return render(request, 'habit/record_edit.html', {'form': form})
 
+# Need to create a new date everyday
+def new_date(request):
+    pass
+
+# creates a new record, but doesn't have date and it needs that
+# TODO: Need to make date show up when it is custom made
+def new_record(request, habitpk):
+    dates = Date.objects.all()
+    if request.method == "POST":
+        form = NewRecordForm(request.POST)
+        form2 = DateForm(request.POST)
+        if form.is_valid() and form2.is_valid():
+            # this is save 
+            record = form.save(commit=False)
+            date = form2.save(commit=False)
+            
+                
+            # i Want this to happen only when record.h_date is not filled in
+            if record.h_date not in dates and date not in dates:
+                date.save()
+                record.h_date = date
+
+            record.user = request.user
+            record.save()
+            return redirect('home') 
+    else:
+        form = NewRecordForm()
+        form2 = DateForm()
+    return render(request, 'habit/new_record.html', {'form': form, 'form2':form2})
 
 #Need a record to be made every day
 #TODO somewhere I need to change the boolean value to determine if record of habit met goal

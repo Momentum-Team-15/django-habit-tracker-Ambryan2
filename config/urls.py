@@ -25,4 +25,6 @@ urlpatterns = [
     path('habit/<int:pk>',views.habit_detail, name='habit_detail'),
     path('habit/<int:habitpk>/<str:yearpk>/<int:monthpk>/<int:daypk>',views.day_record, name='day_record'),
     path('habit/<int:habitpk>/<str:datepk>', views.edit_records, name="edit_records"),
+    path('record/new_record/<int:habitpk>',views.new_record,name='new_record'),
+
 ]

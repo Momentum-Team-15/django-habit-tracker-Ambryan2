@@ -12,6 +12,7 @@ class Habit(models.Model):
     target = models.FloatField()
     measurement = models.CharField(max_length=50, null=True, blank=True)
     user = models.ForeignKey('User', on_delete=models.CASCADE,blank=True, null=True)
+    actual_date = models.DateField(auto_now_add=True, null=True) 
 
     class Meta:
         constraints = [
@@ -26,7 +27,7 @@ class Record(models.Model):
     user = models.ForeignKey('User', on_delete=models.CASCADE,blank=True, null=True)
     r_habit = models.ForeignKey('Habit', on_delete=models.CASCADE,blank=True, null=True)
     outcome = models.BooleanField(default=False)
-    target = models.FloatField()
+    target = models.FloatField(default=0)
 
     class Meta:
         constraints = [
@@ -44,6 +45,11 @@ class Date(models.Model):
     
     def __str__(self):
         return f"{self.h_year}/{self.h_month}/{self.h_day}"
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['h_year','h_month','h_day'], name='one_date')
+        ]
 
 class Year(models.Model):
     name = models.CharField(max_length=50)
