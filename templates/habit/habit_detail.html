@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for record in records %}
+    <p><a href="{% url 'day_record' habitpk=record.r_habit.pk yearpk=record.h_date.h_year monthpk=record.h_date.h_month.pk daypk=record.h_date.h_day.pk %}">test</a></p> {{ record.r_habit.pk }}
+    {{ record }} set on {{ record.h_date }}<br>
+    the year pk is {{ record.h_date.h_year.pk }}<br>
+    the month pk is {{ record.h_date.h_month.pk }}
+    the day pk is {{ record.h_date.h_day.pk }}
+{% endfor %}
+
+{% endblock %}

@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from habit import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
+    path('', views.index, name='home'),
+    path('habit/<int:pk>',views.habit_detail, name='habit_detail'),
+    path('habit/<int:habitpk>/<str:yearpk>/<int:monthpk>/<int:daypk>',views.day_record, name='day_record'),
 ]
