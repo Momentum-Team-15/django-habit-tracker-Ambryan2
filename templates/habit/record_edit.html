@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p><a href="{% url 'home' %}">Home</a></p>
+<div class="links">
+    <div class="nav">
+        <p><a href="{% url 'home' %}">Home</a></p>
+    </div>
+    <p class="logout"><a href="{% url 'logout' %}">Logout</a></p>
+</div>
 
 <h2>Edit Record</h2>
     <form method="POST" class="post-form">{% csrf_token %}

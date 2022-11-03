@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p><a href="{% url 'home' %}">Home</a></p>
-<p><a href="{% url 'habit_new' %}">New Habit</a></p>
+<div class="links">
+    <div class="nav">
+        <p><a href="{% url 'home' %}">Home</a></p>
+    </div>
+    <p class="logout"><a href="{% url 'logout' %}">Logout</a></p>
+</div>
 
 <h4>Goal is to {{ habit }} for {{ habit.target }} {{ habit.measurement }} </h4>
 
@@ -21,5 +25,7 @@
 
 {% endfor %}
 </table>
+
+<h5>To delete habit<a href="{% url 'habit_delete' habitpk=habit.pk %}"> press here</a></h5>
 
 {% endblock %}

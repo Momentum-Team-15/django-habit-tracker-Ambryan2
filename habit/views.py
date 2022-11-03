@@ -1,5 +1,6 @@
 
 from django.shortcuts import render, get_object_or_404, redirect
+from django.db import IntegrityError
 from .models import User, Habit, Record, Date, Year, Month, Day
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
@@ -66,7 +67,6 @@ def new_date(request):
 # creates a new record, but doesn't have date and it needs that
 # TODO: Need to make date show up when it is custom made
 def new_record(request, habitpk):
-    collection = Record.objects.filter(r_habit=habitpk)
     dates = Date.objects.all()
     habit = Habit.objects.get(pk=habitpk)
     if request.method == "POST":
@@ -85,16 +85,30 @@ def new_record(request, habitpk):
             record.r_habit = habit
             record.user = request.user
 
-            if record not in collection:
+            # if integrity error occurs then return to same page. Also be sure you are interpreting the right integrityerror
+            try:
                 record.save()
                 return redirect('home')
-            else:
-                return redirect('home') 
+            except IntegrityError:
+                # repeat line 100 and add error message (div)
+                return render(request, 'habit/new_record.html', {'form': form, 'form2':form2, 'habit':habit})
     else:
         form = NewRecordForm()
         form2 = DateForm()
-    return render(request, 'habit/new_record.html', {'form': form, 'form2':form2, 'habit':habit, 'collection':collection})
-# TODO Maybe a try and catch for the above for IntegrityError so that it doesn't go to error page
+    return render(request, 'habit/new_record.html', {'form': form, 'form2':form2, 'habit':habit})
+
+# Need to be able to delete a record 
+def record_delete(request, recordpk):
+    record = Record.objects.get(pk=recordpk)
+    record.delete()
+    return redirect('home')
+
+# need to be able to delete a habit
+def habit_delete(request, habitpk):
+    habit = Habit.objects.get(pk=habitpk)
+    habit.delete()
+    return redirect('home')
+
 
 #Need a record to be made every day
 #TODO somewhere I need to change the boolean value to determine if record of habit met goal

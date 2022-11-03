@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p><a href="{% url 'home' %}">Home</a></p>
-<p><a href="{% url 'habit_new' %}">New Habit</a></p>
-<p class="links"><a href="{% url 'logout' %}">Logout</a></p>
+<div class="links">
+    <div class="nav">
+        <p><a href="{% url 'home' %}">Home</a></p>
+    </div>
+    <p class="logout"><a href="{% url 'logout' %}">Logout</a></p>
+</div>
 
+<div class="yourhabit">
+    <h2>Your Habits</h2>
+    <p><a class="add_habit" href="{% url 'habit_new' %}">➕</a></p>
+</div>
 {% for habit in habits %}
     <h4><a href="{% url 'habit_detail' pk=habit.pk %}">{{ habit }}</a></h4>
     <a href="{% url 'new_record' habitpk=habit.pk %}">Add record</a> <br> <br><br>
