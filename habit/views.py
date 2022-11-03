@@ -11,7 +11,7 @@ from .forms import HabitForm, RecordEditForm, DateForm, NewRecordForm
 # want a home page will need login required 
 @login_required
 def index(request):
-    habits = Habit.objects.all()
+    habits = Habit.objects.filter(user=request.user)
     return render(request, 'habit/index.html', {'habits':habits})
 
 # want a logout link
