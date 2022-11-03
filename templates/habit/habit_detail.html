@@ -8,24 +8,25 @@
     <p class="logout"><a href="{% url 'logout' %}">Logout</a></p>
 </div>
 
-<h4>Goal is to {{ habit }} for {{ habit.target }} {{ habit.measurement }} </h4>
+<div class="info">
+    <h4>Goal is to {{ habit }} for {{ habit.target }} {{ habit.measurement }} </h4>
 
-<table>
-    <tr>
-      <th>Record</th>
-      <th>Date</th>
-      <th>More info</th>
-    </tr>
-{% for record in records %}
-    <tr>
-      <td>{{ record.r_habit }} for {{ record.target}} {{ record.r_habit.measurement }}</td>
-      <td>{{ record.h_date }}</td>
-      <td><p><a href="{% url 'day_record' habitpk=record.r_habit.pk yearpk=record.h_date.h_year monthpk=record.h_date.h_month.pk daypk=record.h_date.h_day.pk %}">Details</a></p></td>
-    </tr>
+    <table>
+        <tr>
+        <th>Record</th>
+        <th>Date</th>
+        <th>More info</th>
+        </tr>
+    {% for record in records %}
+        <tr>
+        <td>{{ record.r_habit }} for {{ record.target}} {{ record.r_habit.measurement }}</td>
+        <td>{{ record.h_date }}</td>
+        <td><p><a href="{% url 'day_record' habitpk=record.r_habit.pk yearpk=record.h_date.h_year monthpk=record.h_date.h_month.pk daypk=record.h_date.h_day.pk %}">Details</a></p></td>
+        </tr>
 
-{% endfor %}
-</table>
+    {% endfor %}
+    </table>
 
-<h5>To delete habit<a href="{% url 'habit_delete' habitpk=habit.pk %}"> press here</a></h5>
-
+    <h5>To delete habit<a href="{% url 'habit_delete' habitpk=habit.pk %}"> press here</a></h5>
+</div>
 {% endblock %}

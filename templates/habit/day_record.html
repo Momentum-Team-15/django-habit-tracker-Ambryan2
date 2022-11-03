@@ -8,15 +8,15 @@
     <p class="logout"><a href="{% url 'logout' %}">Logout</a></p>
 </div>
 
-
-{% for record in records %}
-    <div>
-        <p>Goal: {{ record.r_habit }} for {{ record.r_habit.target}} {{ record.r_habit.measurement }}</p>
-        <p>What you did: {{ record }} {{ record.r_habit.measurement }}</p>
-    </div>
-        <p><a href="{% url 'edit_records' habitpk=record.r_habit.pk datepk=record.h_date.pk %}">Edit</a></p>
-        <p></p><a href="{% url 'record_delete' recordpk=record.pk %}">Delete</a></p>
-{% endfor %}
-
+<div class="info">
+    {% for record in records %}
+        <div>
+            <p>Goal: {{ record.r_habit }} for {{ record.r_habit.target}} {{ record.r_habit.measurement }}</p>
+            <p>What you did: {{ record }} {{ record.r_habit.measurement }}</p>
+        </div>
+            <p><a href="{% url 'edit_records' habitpk=record.r_habit.pk datepk=record.h_date.pk %}">Edit</a></p>
+            <p></p><a href="{% url 'record_delete' recordpk=record.pk %}">Delete</a></p>
+    {% endfor %}
+</div>
 
 {% endblock %}

@@ -1,3 +1,6 @@
+body{
+    margin:0;
+}
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -13,7 +16,93 @@ td, th {
 tr:nth-child(even) {
     background-color: #dddddd;
 }
-
+/* Header */
+header{
+    display:flex;
+    background-color:rgb(239, 169, 39);
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+}
 h1{
-    color: blue;
+    color: rgb(76, 54, 12);
+    margin: 10px 0px;
+    font-size: 60px;
+}
+.links{
+    display:flex;
+    justify-content: space-between;
+    background-color: orange;
+    padding: 0px 60px;
+}
+.nav p a{
+    color: rgb(33, 17, 0);
+    text-decoration: none;
+}
+.nav p a:hover{
+    color: white;
+    text-decoration: none;
+}
+.logout a{
+    color: rgb(33, 17, 0);
+    text-decoration: none;
+}
+.logout a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+/* index */
+.yourhabit{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+.yourhabit h2{
+    font-size: 30px;
+}
+.add_habit{
+    text-decoration: none;
+    color: black;
+}
+.add_habit:hover{
+    color: orange;
+}
+.habitcont{
+    display: flex;
+    flex-flow: column;
+    margin: 0px auto;
+    width: 70%;
+    border:2px solid rgb(227, 193, 129);
+    border-radius: 2em;
+}
+.indivhabit{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+    padding: 0px 10px;
+}
+.indivhabit p a{
+    text-decoration: none;
+    color: crimson;
+}
+.indivhabit p a:hover{
+    color: orange;
+}
+.indivhabit h4 a{
+    text-decoration: none;
+    text-transform: capitalize;
+    font-size: 20px;
+    color: crimson;
+}
+.indivhabit h4 a:hover{
+    color:orange;
+}
+
+/* indents all info */
+.info{
+    padding: 0px 60px;
 }

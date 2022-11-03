@@ -7,10 +7,11 @@
     </div>
     <p class="logout"><a href="{% url 'logout' %}">Logout</a></p>
 </div>
-
-<h2>New Habit</h2>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-secondary">Save</button>
-    </form>
+<div class="info">
+    <h2>New Habit</h2>
+        <form method="POST" class="post-form">{% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="save btn btn-secondary">Save</button>
+        </form>
+</div>
 {% endblock %}
