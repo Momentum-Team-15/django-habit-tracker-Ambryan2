@@ -2,16 +2,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import User, Habit, Record, Date, Year, Month, Day
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 from .forms import HabitForm, RecordEditForm, DateForm, NewRecordForm
 
 # Create your views here.
 
 # want a home page will need login required 
+@login_required
 def index(request):
     habits = Habit.objects.all()
     return render(request, 'habit/index.html', {'habits':habits})
 
-# want a login page
+# want a logout link
+def logout(request):
+    return render(request, 'accounts/logout/')
+
 # want a view for all particular habit records, if there are no record send them to page to add records
 def habit_detail(request, pk):
     habit = Habit.objects.get(pk=pk)
