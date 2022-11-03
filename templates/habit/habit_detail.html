@@ -9,8 +9,10 @@
 </div>
 
 <div class="info">
-    <h4>Goal is to {{ habit }} for {{ habit.target }} {{ habit.measurement }} </h4>
-
+    <div class="recordtitle">
+        <h4>Goal is to {{ habit }} for {{ habit.target }} {{ habit.measurement }} </h4>
+        <p><a href="{% url 'new_record' habitpk=habit.pk %}">Add record</a></p>
+    </div>
     <table>
         <tr>
         <th>Record</th>
@@ -19,7 +21,12 @@
         </tr>
     {% for record in records %}
         <tr>
-        <td>{{ record.r_habit }} for {{ record.target}} {{ record.r_habit.measurement }}</td>
+        <td class="star">
+            <p>{{ record.r_habit }} for {{ record.target}} {{ record.r_habit.measurement }}</p>
+            <p>{% if record.target >= habit.target %}
+            ⭐️
+            {% endif %}</p>
+        </td>
         <td>{{ record.h_date }}</td>
         <td><p><a href="{% url 'day_record' habitpk=record.r_habit.pk yearpk=record.h_date.h_year monthpk=record.h_date.h_month.pk daypk=record.h_date.h_day.pk %}">Details</a></p></td>
         </tr>

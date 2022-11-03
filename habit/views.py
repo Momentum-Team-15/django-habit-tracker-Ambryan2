@@ -109,6 +109,7 @@ def habit_delete(request, habitpk):
     habit.delete()
     return redirect('home')
 
+# Need to be able to determine if goal was met
 
 #Need a record to be made every day
 #TODO somewhere I need to change the boolean value to determine if record of habit met goal

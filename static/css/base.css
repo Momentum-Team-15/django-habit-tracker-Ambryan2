@@ -10,7 +10,8 @@ table {
 td, th {
     border: 1px solid #dddddd;
     text-align: left;
-    padding: 8px;
+    height: 50px;
+    padding: 10px;
 }
   
 tr:nth-child(even) {
@@ -101,7 +102,21 @@ h1{
 .indivhabit h4 a:hover{
     color:orange;
 }
-
+/* habit detail */
+.recordtitle{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.recordtitle h4{
+    font-size: 20px;
+}
+.star{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
 /* indents all info */
 .info{
     padding: 0px 60px;
