@@ -3,7 +3,8 @@
 {% block content %}
 <p><a href="{% url 'home' %}">Home</a></p>
 
-<h2>New Record</h2>
+<p>test records with same habit {{ collection }}</p>
+<h2>New Record for {{ habit }}</h2>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}<br>
         or make new date <br>

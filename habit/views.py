@@ -14,8 +14,9 @@ def index(request):
 # want a login page
 # want a view for all particular habit records, if there are no record send them to page to add records
 def habit_detail(request, pk):
+    habit = Habit.objects.get(pk=pk)
     records = Record.objects.filter(r_habit=pk).order_by('-h_date')
-    return render(request,'habit/habit_detail.html',{'records':records})
+    return render(request,'habit/habit_detail.html',{'records':records,'habit':habit})
 
 #want a view of each individual record for a set date with url 
 def day_record(request, habitpk, yearpk, monthpk, daypk):
@@ -60,7 +61,9 @@ def new_date(request):
 # creates a new record, but doesn't have date and it needs that
 # TODO: Need to make date show up when it is custom made
 def new_record(request, habitpk):
+    collection = Record.objects.filter(r_habit=habitpk)
     dates = Date.objects.all()
+    habit = Habit.objects.get(pk=habitpk)
     if request.method == "POST":
         form = NewRecordForm(request.POST)
         form2 = DateForm(request.POST)
@@ -69,19 +72,24 @@ def new_record(request, habitpk):
             record = form.save(commit=False)
             date = form2.save(commit=False)
             
-                
-            # i Want this to happen only when record.h_date is not filled in
+            # When record.h_date is filled in it matches a date in dates, so if empty it automatically shouldn't
             if record.h_date not in dates and date not in dates:
                 date.save()
                 record.h_date = date
 
+            record.r_habit = habit
             record.user = request.user
-            record.save()
-            return redirect('home') 
+
+            if record not in collection:
+                record.save()
+                return redirect('home')
+            else:
+                return redirect('home') 
     else:
         form = NewRecordForm()
         form2 = DateForm()
-    return render(request, 'habit/new_record.html', {'form': form, 'form2':form2})
+    return render(request, 'habit/new_record.html', {'form': form, 'form2':form2, 'habit':habit, 'collection':collection})
+# TODO Maybe a try and catch for the above for IntegrityError so that it doesn't go to error page
 
 #Need a record to be made every day
 #TODO somewhere I need to change the boolean value to determine if record of habit met goal
