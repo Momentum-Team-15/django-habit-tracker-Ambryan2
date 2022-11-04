@@ -18,7 +18,7 @@
     {% for habit in habits %}
         <div class="indivhabit">
             <h4><a href="{% url 'habit_detail' pk=habit.pk %}">{{ habit }}</a> for {{ habit.target }} {{ habit.measurement }}</h4>
-            <p><a href="{% url 'new_record' habitpk=habit.pk %}">Add record</a></p>
+            <p><a href="{% url 'habit_edit' habitpk=habit.pk %}">Edit</a></p>
         </div>
     {% endfor %}
 </div>

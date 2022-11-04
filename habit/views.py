@@ -11,7 +11,7 @@ from .forms import HabitForm, RecordEditForm, DateForm, NewRecordForm
 # want a home page will need login required 
 @login_required
 def index(request):
-    habits = Habit.objects.filter(user=request.user)
+    habits = Habit.objects.filter(user=request.user).order_by('-actual_date')
     return render(request, 'habit/index.html', {'habits':habits})
 
 # want a logout link
@@ -47,6 +47,19 @@ def habit_new(request):
     else:
         form = HabitForm()
     return render(request, 'habit/habit_edit.html', {'form': form})
+# need to be able to edit habits
+def habit_edit(request, habitpk):
+    habit = Habit.objects.get(pk=habitpk)
+    if request.method == "POST":
+        form = HabitForm(request.POST, instance=habit)
+        if form.is_valid():
+            habit = form.save(commit=True)
+            habit.save()
+            return redirect('home')
+    else:
+        form = HabitForm(instance=habit)
+    return render(request, 'habit/record_edit.html', {'form': form})
+
 #Able to edit records
 def edit_records(request, habitpk, datepk):
     record = Record.objects.get(r_habit=habitpk,h_date=datepk)
@@ -108,8 +121,6 @@ def habit_delete(request, habitpk):
     habit = Habit.objects.get(pk=habitpk)
     habit.delete()
     return redirect('home')
-
-# Need to be able to determine if goal was met
 
 #Need a record to be made every day
 #TODO somewhere I need to change the boolean value to determine if record of habit met goal

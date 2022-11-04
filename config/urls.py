@@ -29,4 +29,5 @@ urlpatterns = [
     path('record/new_record/<int:habitpk>',views.new_record,name='new_record'),
     path('record/delete/<int:recordpk>', views.record_delete, name='record_delete'),
     path('habit/delete/<int:habitpk>', views.habit_delete, name='habit_delete'),
+    path('habit/new/<int:habitpk>', views.habit_edit, name="habit_edit"),
 ]
