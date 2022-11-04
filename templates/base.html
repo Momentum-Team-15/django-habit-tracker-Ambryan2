@@ -12,6 +12,10 @@
     <header>
         <h1>Habit Tracker</h1>
     </header>
+    {% if habit.user == False %}
+        <p><a href="{% url 'login' %}">Login</a></p>
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 

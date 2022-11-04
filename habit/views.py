@@ -9,14 +9,17 @@ from .forms import HabitForm, RecordEditForm, DateForm, NewRecordForm
 # Create your views here.
 
 # want a home page will need login required 
-@login_required
+@login_required(login_url='/accounts/login/')
 def index(request):
     habits = Habit.objects.filter(user=request.user).order_by('-actual_date')
     return render(request, 'habit/index.html', {'habits':habits})
 
 # want a logout link
 def logout(request):
-    return render(request, 'accounts/logout/')
+    return render(request,'accounts/login/')
+
+def login(request):
+    return render(request, 'accounts/login/')
 
 # want a view for all particular habit records, if there are no record send them to page to add records
 def habit_detail(request, pk):

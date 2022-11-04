@@ -154,4 +154,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'habit.User'
 
-LOGIN_REDIRECT_URL = 'home'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/accounts/login/?next=/'  # Where I want user to go after loggin out
