@@ -55,7 +55,9 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic', #  <-- add this
     'django.contrib.staticfiles',
     'django_extensions',
+    'rest_framework',
     'habit',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -157,3 +159,12 @@ AUTH_USER_MODEL = 'habit.User'
 LOGOUT_REDIRECT_URL = '/accounts/login/?next=/'  # Where I want user to go after loggin out
 
 LOGIN_URL='home'
+
+#For DRF
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ]
+}

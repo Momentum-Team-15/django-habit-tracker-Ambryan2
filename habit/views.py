@@ -125,5 +125,7 @@ def habit_delete(request, habitpk):
     habit.delete()
     return redirect('home')
 
+#TODO need a form to be filled out and it render a page filled with records made on that date
+
 #Need a record to be made every day
 #TODO somewhere I need to change the boolean value to determine if record of habit met goal
